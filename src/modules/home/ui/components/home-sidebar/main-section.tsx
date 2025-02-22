@@ -7,7 +7,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { FlameIcon, HomeIcon, Link, PlaySquareIcon } from "lucide-react";
+import {
+  FlameIcon,
+  HomeIcon,
+  Link,
+  PlaySquareIcon,
+} from "lucide-react";
+import { useAuth, useClerk } from "@clerk/nextjs";
 
 const items = [
   {
@@ -29,25 +35,44 @@ const items = [
 ];
 
 export const MainSection = () => {
+  const clerk = useClerk();
+  const { isSignedIn } = useAuth();
+
   return (
     <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                tooltip="item.title"
-                asChild
-                isActive={false} // TODO: change to look at current pathname
-                onClick={() => {}} // TODO: Do something on click
-              >
-                <Link href={item.url}>
-                  <item.icon />
-                  <span className="text-sm">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            return (
+              <SidebarMenuItem key={item.title} style={{ cursor: "pointer" }}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  asChild
+                  isActive={false} // TODO: change to look at current pathname
+                  onClick={(e) => {
+                    if (!isSignedIn && item.auth) {
+                      e.preventDefault();
+                      return clerk.openSignIn();
+                    }
+                  }} // TODO: Do something on click
+                >
+                  <div className="flex items-center gap-4">
+                    <item.icon />
+                    <Link
+                      href={item.url}
+                      style={{ color: "transparent" }}
+                    ></Link>
+                    <span
+                      className="text-sm"
+                      style={{ position: "relative", left: "-2rem" }}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
