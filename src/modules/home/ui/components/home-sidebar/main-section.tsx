@@ -7,13 +7,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  FlameIcon,
-  HomeIcon,
-  Link,
-  PlaySquareIcon,
-} from "lucide-react";
+import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
 import { useAuth, useClerk } from "@clerk/nextjs";
+import Link from "next/link";
 
 const items = [
   {
@@ -57,17 +53,12 @@ export const MainSection = () => {
                   }} // TODO: Do something on click
                 >
                   <div className="flex items-center gap-4">
-                    <item.icon />
-                    <Link
-                      href={item.url}
-                      style={{ color: "transparent" }}
-                    ></Link>
-                    <span
-                      className="text-sm"
-                      style={{ position: "relative", left: "-2rem" }}
-                    >
-                      {item.title}
-                    </span>
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span className="text-sm cursor-pointer">
+                        {item.title}
+                      </span>
+                    </Link>
                   </div>
                 </SidebarMenuButton>
               </SidebarMenuItem>
