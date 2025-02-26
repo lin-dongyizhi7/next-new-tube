@@ -18,11 +18,13 @@ import Link from "next/link";
 
 export const VideoSection = () => {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <ErrorBoundary fallback={<p>Error</p>}>
-        <VideoSectionSuspense />
-      </ErrorBoundary>
-    </Suspense>
+    <div className="p-4 pt-0">
+      <Suspense fallback={<p>Loading...</p>}>
+        <ErrorBoundary fallback={<p>Error</p>}>
+          <VideoSectionSuspense />
+        </ErrorBoundary>
+      </Suspense>
+    </div>
   );
 };
 
@@ -35,7 +37,7 @@ const VideoSectionSuspense = () => {
   );
 
   return (
-    <div>
+    <div className="pt-4">
       <div className="border-y">
         <Table>
           <TableHeader>
@@ -44,16 +46,20 @@ const VideoSectionSuspense = () => {
               <TableHead>Visibility</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead className="text-right">Views</TableHead>
-              <TableHead className="text-right">Comments</TableHead>
-              <TableHead className="text-right pr-6">Likes</TableHead>
+              <TableHead className="text-center">Views</TableHead>
+              <TableHead className="text-center">Comments</TableHead>
+              <TableHead className="text-center pr-6">Likes</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {videos.pages
               .flatMap((page) => page.items)
               .map((video) => (
-                <Link href={`/studio/videos/${video.id}`} key={video.id} legacyBehavior>
+                <Link
+                  href={`/studio/videos/${video.id}`}
+                  key={video.id}
+                  legacyBehavior
+                >
                   <TableRow className="cursor-pointer">
                     <TableCell>{video.title}</TableCell>
                     <TableCell>Visibility</TableCell>

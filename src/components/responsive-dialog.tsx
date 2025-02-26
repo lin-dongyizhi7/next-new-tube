@@ -26,7 +26,7 @@ export const ResponsiveModal = ({
   onOpenChange,
 }: ResponsiveModalProps) => {
   const isMobile = useIsMobile();
-
+  
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={onOpenChange}>
@@ -45,6 +45,7 @@ export const ResponsiveModal = ({
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
+        {children}
       </DialogContent>
     </Dialog>
   );
