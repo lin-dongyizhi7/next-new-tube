@@ -55,14 +55,10 @@ export const PersonalSection = () => {
                     }
                   }} // TODO: Do something on click
                 >
-                  <div className="flex items-center gap-4">
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span className="text-sm cursor-pointer">
-                        {item.title}
-                      </span>
-                    </Link>
-                  </div>
+                  <Link href={item.url} className="flex items-center gap-4">
+                    <item.icon />
+                    <span className="text-sm cursor-pointer">{item.title}</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             );
